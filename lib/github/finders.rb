@@ -19,6 +19,11 @@ module GitHub
       j = json("/repos/show/#{login}", :repositories)
       Repository.repositories_from_hashes(j)
     end
+    
+    def search(query, language=nil, start_page=1)
+      j = json("/repos/search/#{query}?start_page=#{start_page}#{language ? "&language=#{language}" : ''}", :repositories)
+      Repository.repositories_from_hashes(j)
+    end
 
     def watched(login)
       j = json("/repos/watched/#{login}", :repositories)
